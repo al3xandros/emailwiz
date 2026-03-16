@@ -23,6 +23,14 @@ chmod -R g+r /etc/postfix/dkim/*
 
 # Add entries to keytable and signing table
 echo "$subdom._domainkey.$domain $domain:$subdom:/etc/postfix/dkim/$domain/$subdom.private" >> /etc/postfix/dkim/keytable
+
+# Replace "." in the domain with "\." to create domain-pcre 
+domain_pcre=$(echo $domain | sed 's/\./\\./g') 
+# Add the line to /etc/postfix/login_maps.pcre 
+tee -a /etc/postfix/login_maps.pcre <<EOF 
+/^(.*)@$domain_pcre$/ \${1}
+EOF
+
 echo "*@$domain $subdom._domainkey.$domain" >> /etc/postfix/dkim/signingtable
 
 /etc/init.d/opendkim reload

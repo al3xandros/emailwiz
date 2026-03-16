@@ -21,7 +21,7 @@ install_packages="postfix postfix-pcre dovecot-imapd dovecot-pop3d dovecot-sieve
 
 systemctl -q stop dovecot
 systemctl -q stop postfix
-apt-get purge ?config-files -y $install_packages
+echo "nameserver 1.1.1.1" > /etc/resolv.conf
 apt-get install -y $install_packages
 
 domain="$(cat /etc/mailname)"

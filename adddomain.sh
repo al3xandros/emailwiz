@@ -25,7 +25,8 @@ chmod -R g+r /etc/postfix/dkim/*
 echo "$subdom._domainkey.$domain $domain:$subdom:/etc/postfix/dkim/$domain/$subdom.private" >> /etc/postfix/dkim/keytable
 echo "*@$domain $subdom._domainkey.$domain" >> /etc/postfix/dkim/signingtable
 
-systemctl reload opendkim postfix
+/etc/init.d/opendkim reload
+/etc/init.d/postfix reload
 
 # Print out DKIM TXT entry
 pval="$(tr -d '\n' <"/etc/postfix/dkim/$domain/$subdom.txt" | sed "s/k=rsa.* \"p=/k=rsa; p=/;s/\"\s*\"//;s/\"\s*).*//" | grep -o 'p=.*')"

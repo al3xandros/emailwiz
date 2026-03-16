@@ -1,3 +1,10 @@
+# Email server setup script for Containers
+
+> [!CAUTION]
+> Highly personalised emailwiz fork for my email needs. **Do not use**
+
+---
+
 # Email server setup script
 
 This script installs an email server with all the features required in the
